@@ -16,7 +16,7 @@ describe("sms otp module", () => {
 
   it('success to send otp, after more than 1 minute', () => {
     const notValid = isNotValidInterval({
-      phoneNumber: '621233',
+      phoneNumber,
       lastSentAt: '2022-02-27 10:11',
       otp: '8981'
     }, new Date('2022-02-27 10:12:01'))
@@ -26,6 +26,15 @@ describe("sms otp module", () => {
   it('fail to send otp, interval to close', () => {
     const notValid = isNotValidInterval({
       phoneNumber: '621233',
+      lastSentAt: '2022-02-27 10:11:00',
+      otp: '8981'
+    }, new Date('2022-02-27 10:11:30'))
+    expect(notValid).toBe(true)
+  })
+
+  it('fail to send otp, interval to close', () => {
+    const notValid = isNotValidInterval({
+      phoneNumber,
       lastSentAt: '2022-02-27 10:11:00',
       otp: '8981'
     }, new Date('2022-02-27 10:11:30'))
